@@ -20,7 +20,7 @@ val animal = listOf(
         avgGrowth = 5
     ),
     AnimalModel(
-        animalId = 0,
+        animalId = 1,
         animalName = "Zebra",
         totNumber = 8,
         avgAge = 16,
@@ -152,7 +152,6 @@ fun populateBarChart(values: Array<Int>, ourBarChart: BarChart) {
         ourBarEntries.add(BarEntry(i.toFloat(), value))
         i++
     }
-
 
     val barDataSet = BarDataSet(ourBarEntries, "")
     //set a template coloring

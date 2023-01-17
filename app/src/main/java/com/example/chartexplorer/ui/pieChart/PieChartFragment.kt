@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.chartexplorer.databinding.FragmentPieChartBinding
 import com.example.chartexplorer.utils.retrieveRecordsAndPopulatePieChart
+import com.github.mikephil.charting.charts.Chart
+import com.github.mikephil.charting.utils.Utils
 
 class PieChartFragment : Fragment() {
 
@@ -27,6 +29,7 @@ class PieChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retrieveRecordsAndPopulatePieChart(binding.ourPieChart2)
+        binding.ourPieChart2.setCenterTextSize(17f)
     }
 
 }

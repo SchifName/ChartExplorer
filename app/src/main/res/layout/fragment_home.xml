@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPie"
         android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         android:layout_weight="1"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
@@ -38,7 +38,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBar"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="175dp"
         android:layout_weight="2"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
