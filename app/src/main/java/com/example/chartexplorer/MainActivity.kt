@@ -1,75 +1,193 @@
 package com.example.chartexplorer
 
-import android.graphics.Color
 import android.os.Bundle
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chartexplorer.model.AnimalModel
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.utils.ColorTemplate
+
 
 class MainActivity : AppCompatActivity() {
-
-    // on below line we are creating
-    // variables for our bar chart
-    lateinit var barChart: BarChart
-
-    // on below line we are creating
-    // a variable for bar data
-    lateinit var barData: BarData
-
-    // on below line we are creating a
-    // variable for bar data set
-    lateinit var barDataSet: BarDataSet
-
-    // on below line we are creating array list for bar data
-    lateinit var barEntriesList: ArrayList<BarEntry>
+    private lateinit var ourPieChart: PieChart
+    private lateinit var ourBarChart: BarChart
+    private lateinit var ourLineChart: LineChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // on below line we are initializing
-        // our variable with their ids.
-        barChart = findViewById(R.id.idBarChart)
-
-        // on below line we are calling get bar
-        // chart data to add data to our array list
-        getBarChartData()
-
-        // on below line we are initializing our bar data set
-        barDataSet = BarDataSet(barEntriesList, "Bar Chart Data")
-
-        // on below line we are initializing our bar data
-        barData = BarData(barDataSet)
-
-        // on below line we are setting data to our bar chart
-        barChart.data = barData
-
-        // on below line we are setting colors for our bar chart text
-        barDataSet.valueTextColor = Color.BLACK
-
-        // on below line we are setting color for our bar data set
-        barDataSet.setColor(resources.getColor(R.color.purple_200))
-
-        // on below line we are setting text size
-        barDataSet.valueTextSize = 16f
-
-        // on below line we are enabling description as false
-        barChart.description.isEnabled = false
-
-    }
-    private fun getBarChartData() {
-        barEntriesList = ArrayList()
-
-        // on below line we are adding data
-        // to our bar entries list
-        barEntriesList.add(BarEntry(1f, 1f))
-        barEntriesList.add(BarEntry(2f, 2f))
-        barEntriesList.add(BarEntry(3f, 3f))
-        barEntriesList.add(BarEntry(4f, 4f))
-        barEntriesList.add(BarEntry(5f, 5f))
-
+        ourPieChart = findViewById(R.id.ourPieChart)
+        ourBarChart = findViewById(R.id.ourBarChart)
+        ourLineChart = findViewById(R.id.ourLineChart)
+        retrieveRecordsAndPopulateCharts()
     }
 
+
+    fun retrieveRecordsAndPopulateCharts() {
+        //creating the instance of DatabaseHandler class
+        //calling the retreiveAnimals method of DatabaseHandler class to read the records
+        val animal = listOf(
+            AnimalModel(
+                animalId = 0,
+                animalName = "Lion",
+                totNumber = 4,
+                avgAge = 10,
+                avgGrowth = 5
+            ),
+            AnimalModel(
+                animalId = 0,
+                animalName = "Lion",
+                totNumber = 4,
+                avgAge = 10,
+                avgGrowth = 5
+            )
+        )
+        //create arrays for storing the values gotten
+        val animalIDArray = Array<Int>(animal.size) { 0 }
+        val animalNameArray = Array<String>(animal.size) { "natgeo" }
+        val animalNumberArray = Array<Int>(animal.size) { 0 }
+        val animalAgeArray = Array<Int>(animal.size) { 0 }
+        val animalGrowthArray = Array<Int>(animal.size) { 0 }
+
+        //add the records till done
+        var index = 0
+        for (a in animal) {
+            animalIDArray[index] = a.animalId
+            animalNameArray[index] = a.animalName
+            animalNumberArray[index] = a.totNumber
+            animalAgeArray[index] = a.avgAge
+            animalGrowthArray[index] = a.avgGrowth
+            index++
+        }
+        //call the methods for populating the charts
+        populatePieChart(animalNumberArray, animalNameArray)
+        populateBarChart(animalAgeArray)
+        populateLineChart(animalGrowthArray)
+
+    }
+
+    private fun populatePieChart(values: Array<Int>, labels: Array<String>) {
+        //an array to store the pie slices entry
+        val ourPieEntry = ArrayList<PieEntry>()
+        var i = 0
+
+        for (entry in values) {
+            //converting to float
+            var value = values[i].toFloat()
+            var label = labels[i]
+            //adding each value to the pieentry array
+            ourPieEntry.add(PieEntry(value, label))
+            i++
+        }
+
+        //assigning color to each slices
+        val pieShades: ArrayList<Int> = ArrayList()
+        pieShades.add(Color.parseColor("#0E2DEC"))
+        pieShades.add(Color.parseColor("#B7520E"))
+        pieShades.add(Color.parseColor("#5E6D4E"))
+        pieShades.add(Color.parseColor("#DA1F12"))
+
+        //add values to the pie dataset and passing them to the constructor
+        val ourSet = PieDataSet(ourPieEntry, "")
+        val data = PieData(ourSet)
+
+        //setting the slices divider width
+        ourSet.sliceSpace = 1f
+
+        //populating the colors and data
+        ourSet.colors = pieShades
+        ourPieChart.data = data
+        //setting color and size of text
+        data.setValueTextColor(Color.WHITE)
+        data.setValueTextSize(10f)
+
+        //add an animation when rendering the pie chart
+        ourPieChart.animateY(1400, Easing.EaseInOutQuad)
+        //disabling center hole
+        ourPieChart.isDrawHoleEnabled = false
+        //do not show description text
+        ourPieChart.description.isEnabled = false
+        //legend enabled and its various appearance settings
+        ourPieChart.legend.isEnabled = true
+        ourPieChart.legend.orientation = Legend.LegendOrientation.HORIZONTAL
+        ourPieChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+        ourPieChart.legend.isWordWrapEnabled = true
+
+        //dont show the text values on slices e.g Antelope, impala etc
+        ourPieChart.setDrawEntryLabels(false)
+        //refreshing the chart
+        ourPieChart.invalidate()
+
+    }
+
+    private fun populateBarChart(values: Array<Int>) {
+        //adding values
+        val ourBarEntries: ArrayList<BarEntry> = ArrayList()
+        var i = 0
+
+        for (entry in values) {
+            var value = values[i].toFloat()
+            ourBarEntries.add(BarEntry(i.toFloat(), value))
+            i++
+        }
+
+
+        val barDataSet = BarDataSet(ourBarEntries, "")
+        //set a template coloring
+        barDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+        val data = BarData(barDataSet)
+        ourBarChart.data = data
+        //setting the x-axis
+        val xAxis: XAxis = ourBarChart.xAxis
+        //calling methods to hide x-axis gridlines
+        ourBarChart.axisLeft.setDrawGridLines(false)
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(false)
+
+        //remove legend
+        ourBarChart.legend.isEnabled = false
+
+        //remove description label
+        ourBarChart.description.isEnabled = false
+
+        //add animation
+        ourBarChart.animateY(3000)
+        //refresh the chart
+        ourBarChart.invalidate()
+    }
+
+    private fun populateLineChart(values: Array<Int>) {
+        val ourLineChartEntries: ArrayList<Entry> = ArrayList()
+
+        var i = 0
+
+        for (entry in values) {
+            var value = values[i].toFloat()
+            ourLineChartEntries.add(Entry(i.toFloat(), value))
+            i++
+        }
+        val lineDataSet = LineDataSet(ourLineChartEntries, "")
+        lineDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
+        val data = LineData(lineDataSet)
+        ourLineChart.axisLeft.setDrawGridLines(false)
+        val xAxis: XAxis = ourLineChart.xAxis
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(false)
+        ourLineChart.legend.isEnabled = false
+
+        //remove description label
+        ourLineChart.description.isEnabled = false
+
+        //add animation
+        ourLineChart.animateX(1000, Easing.EaseInSine)
+        ourLineChart.data = data
+        //refresh
+        ourLineChart.invalidate()
+    }
 }
