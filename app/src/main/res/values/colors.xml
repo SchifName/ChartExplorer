@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_sky_blue">#FF74b3ce</color>
+    <color name="steel_teal">#FF508991</color>
+    <color name="prussian_blue">#FF172A3A</color>
+    <color name="warm_black">#FF004346</color>
+    <color name="mountain_meadow">#FF09bc8a</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.chartexplorer.ui.BarChart
+package com.example.chartexplorer.ui.barChart
 
 import androidx.lifecycle.ViewModel
 

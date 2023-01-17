@@ -1,32 +1,32 @@
-package com.example.chartexplorer.ui.pieChart
+package com.example.chartexplorer.ui.barChart
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.chartexplorer.databinding.FragmentPieChartBinding
-import com.example.chartexplorer.utils.retrieveRecordsAndPopulatePieChart
+import com.example.chartexplorer.databinding.FragmentBarChartBinding
+import com.example.chartexplorer.utils.retrieveRecordsAndPopulateBarChart
 
-class PieChartFragment : Fragment() {
+class BarChartFragment : Fragment() {
 
-    private var _binding: FragmentPieChartBinding? = null
+    private var _binding: FragmentBarChartBinding? = null
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: PieChartViewModel
+    private lateinit var viewModel: BarChartViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPieChartBinding.inflate(inflater, container, false)
+        _binding = FragmentBarChartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        retrieveRecordsAndPopulatePieChart(binding.ourPieChart2)
+        retrieveRecordsAndPopulateBarChart(binding.ourBarChart2)
     }
 
 }
