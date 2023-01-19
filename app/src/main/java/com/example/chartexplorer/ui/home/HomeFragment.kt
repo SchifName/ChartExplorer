@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chartexplorer.databinding.FragmentHomeBinding
+import com.example.chartexplorer.utils.DataViewModel
 import com.example.chartexplorer.utils.retrieveRecordsAndPopulateCharts
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
@@ -16,7 +18,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    private lateinit var viewModel: HomeViewModel
+    private val dataViewModel: DataViewModel by activityViewModels()
 
     private val binding get() = _binding!!
 
@@ -40,7 +42,7 @@ class HomeFragment : Fragment() {
         ourPieChart = binding.ourPieChart
         ourBarChart = binding.ourBarChart
         ourLineChart = binding.ourLineChart
-        retrieveRecordsAndPopulateCharts(ourPieChart, ourBarChart, ourLineChart)
+        retrieveRecordsAndPopulateCharts(dataViewModel.animal.value,ourPieChart, ourBarChart, ourLineChart)
 
         ourPieChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()

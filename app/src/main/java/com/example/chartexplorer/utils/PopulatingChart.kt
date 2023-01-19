@@ -2,6 +2,7 @@ package com.example.chartexplorer.utils
 
 import android.graphics.Color
 import com.example.chartexplorer.model.AnimalModel
+import com.example.chartexplorer.network.AnimalsInfoFromInternet
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
@@ -31,75 +32,40 @@ val animal = listOf(
 //creating the instance of DatabaseHandler class
 //calling the retrieve Animals method of DatabaseHandler class to read the records
 //create arrays for storing the values gotten
-val animalIDArray = Array<Int>(animal.size) { 0 }
-val animalNameArray = Array<String>(animal.size) { "natgeo" }
-val animalNumberArray = Array<Int>(animal.size) { 0 }
-val animalAgeArray = Array<Int>(animal.size) { 0 }
-val animalGrowthArray = Array<Int>(animal.size) { 0 }
+val animalArray = mutableListOf<AnimalModel>()
 
-
-fun retrieveRecordsAndPopulatePieChart(ourPieChart: PieChart) {
-    //add the records till done
-    var index = 0
-    for (a in animal) {
-        animalIDArray[index] = a.animalId
-        animalNameArray[index] = a.animalName
-        animalNumberArray[index] = a.totNumber
-        animalAgeArray[index] = a.avgAge
-        animalGrowthArray[index] = a.avgGrowth
-        index++
-    }
-    populatePieChart(animalNumberArray, animalNameArray, ourPieChart)
+fun retrieveRecordsAndPopulatePieChart(
+    ourPieChart: PieChart,
+    animalsInfoFromInternet: AnimalsInfoFromInternet
+) {
+    populatePieChart(animalsInfoFromInternet, ourPieChart)
 }
 
-fun retrieveRecordsAndPopulateBarChart(ourBarChart: BarChart) {
-    //add the records till done
-    var index = 0
-    for (a in animal) {
-        animalIDArray[index] = a.animalId
-        animalNameArray[index] = a.animalName
-        animalNumberArray[index] = a.totNumber
-        animalAgeArray[index] = a.avgAge
-        animalGrowthArray[index] = a.avgGrowth
-        index++
-    }
-    populateBarChart(animalAgeArray, ourBarChart)
+fun retrieveRecordsAndPopulateBarChart(
+    ourBarChart: BarChart,
+    animalsInfoFromInternet: AnimalsInfoFromInternet
+) {
+    populateBarChart(animalsInfoFromInternet, ourBarChart)
 }
 
 fun retrieveRecordsAndPopulateCharts(
+    animalsInfoFromInternet: AnimalsInfoFromInternet?,
     ourPieChart: PieChart,
     ourBarChart: BarChart,
     ourLineChart: LineChart
 ) {
-    //add the records till done
-    var index = 0
-    for (a in animal) {
-        animalIDArray[index] = a.animalId
-        animalNameArray[index] = a.animalName
-        animalNumberArray[index] = a.totNumber
-        animalAgeArray[index] = a.avgAge
-        animalGrowthArray[index] = a.avgGrowth
-        index++
+    if(animalsInfoFromInternet != null){
+        populatePieChart(animalsInfoFromInternet ,ourPieChart)
+        populateBarChart(animalsInfoFromInternet, ourBarChart)
+        populateLineChart(animalsInfoFromInternet, ourLineChart)
     }
-    //call the methods for populating the charts
-    populatePieChart(animalNumberArray, animalNameArray, ourPieChart)
-    populateBarChart(animalAgeArray, ourBarChart)
-    populateLineChart(animalGrowthArray, ourLineChart)
-
 }
 
-fun populatePieChart(values: Array<Int>, labels: Array<String>, ourPieChart: PieChart) {
+fun populatePieChart(animalsInfoFromInternet: AnimalsInfoFromInternet, ourPieChart: PieChart) {
     //an array to store the pie slices entry
     val ourPieEntry = ArrayList<PieEntry>()
-    var i = 0
-
-    for (entry in values) {
-        //converting to float
-        var value = values[i].toFloat()
-        var label = labels[i]
-        //adding each value to the pieentry array
-        ourPieEntry.add(PieEntry(value, label))
-        i++
+    animalsInfoFromInternet.animals.forEach { animal ->
+        ourPieEntry.add(PieEntry(animal.totNumber.toFloat(), animal.animalName))
     }
 
     //assigning color to each slices
@@ -142,15 +108,12 @@ fun populatePieChart(values: Array<Int>, labels: Array<String>, ourPieChart: Pie
 
 }
 
-fun populateBarChart(values: Array<Int>, ourBarChart: BarChart) {
+fun populateBarChart(animalsInfoFromInternet: AnimalsInfoFromInternet, ourBarChart: BarChart) {
     //adding values
     val ourBarEntries: ArrayList<BarEntry> = ArrayList()
-    var i = 0
 
-    for (entry in values) {
-        var value = values[i].toFloat()
-        ourBarEntries.add(BarEntry(i.toFloat(), value))
-        i++
+    animalsInfoFromInternet.animals.forEach { animal ->
+        ourBarEntries.add(BarEntry(animal.animalId.toFloat(), animal.avgAge.toFloat()))
     }
 
     val barDataSet = BarDataSet(ourBarEntries, "")
@@ -177,15 +140,10 @@ fun populateBarChart(values: Array<Int>, ourBarChart: BarChart) {
     ourBarChart.invalidate()
 }
 
-fun populateLineChart(values: Array<Int>, ourLineChart: LineChart) {
+fun populateLineChart(animalsInfoFromInternet: AnimalsInfoFromInternet, ourLineChart: LineChart) {
     val ourLineChartEntries: ArrayList<Entry> = ArrayList()
-
-    var i = 0
-
-    for (entry in values) {
-        var value = values[i].toFloat()
-        ourLineChartEntries.add(Entry(i.toFloat(), value))
-        i++
+    for (animal in animalsInfoFromInternet.animals) {
+        ourLineChartEntries.add(Entry(animal.animalId.toFloat(), animal.totNumber.toFloat()))
     }
     val lineDataSet = LineDataSet(ourLineChartEntries, "")
     lineDataSet.setColors(*ColorTemplate.PASTEL_COLORS)
