@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.chartexplorer.databinding.FragmentHomeBinding
 import com.example.chartexplorer.utils.retrieveRecordsAndPopulateCharts
 import com.github.mikephil.charting.charts.BarChart
@@ -41,33 +42,30 @@ class HomeFragment : Fragment() {
         ourLineChart = binding.ourLineChart
         retrieveRecordsAndPopulateCharts(ourPieChart, ourBarChart, ourLineChart)
 
-        /*ourPieChart.setOnClickListener {
+        ourPieChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()
-            val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
-            this.findNavController().navigate(action2)
             this.findNavController().navigate(action)
         }
 
         ourBarChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToBarChartFragment()
-            val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
-            this.findNavController().navigate(action2)
             this.findNavController().navigate(action)
         }
 
         binding.cardPie.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()
-            val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
-            this.findNavController().navigate(action2)
             this.findNavController().navigate(action)
         }
 
         binding.cardBar.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToBarChartFragment()
-            val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
-            this.findNavController().navigate(action2)
             this.findNavController().navigate(action)
-        }*/
+        }
 
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

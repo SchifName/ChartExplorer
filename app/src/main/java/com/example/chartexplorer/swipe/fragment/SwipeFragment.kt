@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.example.chartexplorer.R
 import com.example.chartexplorer.databinding.FragmentHomeBinding
 import com.example.chartexplorer.databinding.FragmentSwipeBinding
+import com.example.chartexplorer.swipe.ScreenSlidePagerAdapter
 import com.example.chartexplorer.ui.home.HomeViewModel
 
 class SwipeFragment : Fragment() {
@@ -30,6 +32,12 @@ class SwipeFragment : Fragment() {
     ): View {
         _binding = FragmentSwipeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val pager: ViewPager = binding.Pager
+        pager.adapter = activity?.let { ScreenSlidePagerAdapter(it.supportFragmentManager) }
     }
 
 }

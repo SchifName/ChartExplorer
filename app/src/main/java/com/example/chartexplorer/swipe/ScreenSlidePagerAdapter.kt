@@ -11,21 +11,25 @@ class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(f
         return 2
     }
 
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
+    }
+
     override fun getItem(position: Int): Fragment {
-        when (position) {
+        return when (position) {
             0 -> {
-                return PieChartFragment()
+                PieChartFragment()
             }
             1 -> {
-                return BarChartFragment()
+                BarChartFragment()
             }
             else -> {
-                return BarChartFragment()
+                PieChartFragment()
             }
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    /*override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
             0 -> {
                 return "Tab 1"
@@ -38,5 +42,5 @@ class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(f
             }
         }
         return super.getPageTitle(position)
-    }
+    }*/
 }

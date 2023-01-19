@@ -29,7 +29,12 @@ class BarChartFragment : Fragment() {
         retrieveRecordsAndPopulateBarChart(binding.ourBarChart2)
         binding.ourBarChart2.xAxis.textSize = 8f
         binding.ourBarChart2.axisLeft.textSize = 8f
-        binding.ourBarChart2.data.setValueTextSize(7f)
+        binding.ourBarChart2.data.setValueTextSize(10f)
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
 }

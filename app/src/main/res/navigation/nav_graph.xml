@@ -38,7 +38,7 @@
             app:destination="@id/pieChartFragment" />
         <action
             android:id="@+id/action_homeFragment_to_swipeFragment2"
-            app:destination="@id/swipeFragment" />
+            app:destination="@id/swipeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/swipeFragment"

@@ -32,4 +32,9 @@ class PieChartFragment : Fragment() {
         binding.ourPieChart2.setCenterTextSize(17f)
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
 }
