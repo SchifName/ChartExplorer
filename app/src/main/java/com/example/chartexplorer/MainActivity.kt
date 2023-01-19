@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.viewpager.widget.ViewPager
 import com.example.chartexplorer.databinding.ActivityMainBinding
+import com.example.chartexplorer.swipe.ScreenSlidePagerAdapter
+import com.google.android.material.tabs.TabLayout
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +23,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        viewPager.adapter = ScreenSlidePagerAdapter(supportFragmentManager)
 
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        tabLayout.setupWithViewPager(viewPager)
 
         setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.main_content)
