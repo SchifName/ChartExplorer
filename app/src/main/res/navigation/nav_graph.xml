@@ -44,7 +44,7 @@
         android:id="@+id/swipeFragment"
         android:name="com.example.chartexplorer.swipe.fragment.SwipeFragment"
         android:label="Charts"
-        tools:layout="@layout/fragment_swipe" >
+        tools:layout="@layout/fragment_swipe">
         <action
             android:id="@+id/action_swipeFragment_to_homeFragment2"
             app:destination="@id/homeFragment" />

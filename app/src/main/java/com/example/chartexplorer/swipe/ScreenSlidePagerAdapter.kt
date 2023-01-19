@@ -2,11 +2,11 @@ package com.example.chartexplorer.swipe
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.chartexplorer.ui.barChart.BarChartFragment
 import com.example.chartexplorer.ui.pieChart.PieChartFragment
 
-class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getCount(): Int {
         return 2
     }

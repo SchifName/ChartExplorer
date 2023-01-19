@@ -6,8 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.chartexplorer.R
+import com.example.chartexplorer.databinding.FragmentHomeBinding
+import com.example.chartexplorer.databinding.FragmentSwipeBinding
+import com.example.chartexplorer.ui.home.HomeViewModel
 
 class SwipeFragment : Fragment() {
+
+    private var _binding: FragmentSwipeBinding? = null
+
+    private val binding get() = _binding!!
+
 
     companion object {
         fun newInstance() = SwipeFragment()
@@ -19,6 +27,9 @@ class SwipeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_swipe, container, false)
+    ): View {
+        _binding = FragmentSwipeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
 }
