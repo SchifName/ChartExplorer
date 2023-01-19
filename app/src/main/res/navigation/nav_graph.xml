@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label="Bar Chart"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/swipeFragment">
 
     <fragment
         android:id="@+id/barChartFragment"
@@ -36,5 +36,17 @@
         <action
             android:id="@+id/action_homeFragment_to_pieChartFragment"
             app:destination="@id/pieChartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_swipeFragment2"
+            app:destination="@id/swipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/swipeFragment"
+        android:name="com.example.chartexplorer.swipe.fragment.SwipeFragment"
+        android:label="Charts"
+        tools:layout="@layout/fragment_swipe" >
+        <action
+            android:id="@+id/action_swipeFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

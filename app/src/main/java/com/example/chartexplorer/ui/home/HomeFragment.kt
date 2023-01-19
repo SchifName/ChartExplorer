@@ -5,8 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.chartexplorer.R
 import com.example.chartexplorer.databinding.FragmentHomeBinding
+import com.example.chartexplorer.swipe.fragment.SwipeFragment
+import com.example.chartexplorer.swipe.fragment.SwipeFragmentDirections
 import com.example.chartexplorer.utils.retrieveRecordsAndPopulateCharts
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
@@ -44,21 +51,37 @@ class HomeFragment : Fragment() {
 
         ourPieChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()
+            if (action == null){
+                val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
+                this.findNavController().navigate(action2)
+            }
             this.findNavController().navigate(action)
         }
 
         ourBarChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToBarChartFragment()
+            if (action == null){
+                val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
+                this.findNavController().navigate(action2)
+            }
             this.findNavController().navigate(action)
         }
 
         binding.cardPie.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()
+            if (action == null){
+                val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
+                this.findNavController().navigate(action2)
+            }
             this.findNavController().navigate(action)
         }
 
         binding.cardBar.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToBarChartFragment()
+            if (action == null){
+                val action2 = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
+                this.findNavController().navigate(action2)
+            }
             this.findNavController().navigate(action)
         }
     }

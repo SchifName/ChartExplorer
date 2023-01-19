@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".swipe.fragment.SwipeFragment">
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
+        android:id="@+id/Pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"/>
 </FrameLayout>
