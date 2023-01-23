@@ -27,9 +27,6 @@ class BarChartFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.ourBarChart2.xAxis.textSize = 8f
-        binding.ourBarChart2.axisLeft.textSize = 8f
-        //binding.ourBarChart2.data.setValueTextSize(10f)
         dataViewModel.animal.observe(this.viewLifecycleOwner) {
             retrieveRecordsAndPopulateBarChart(binding.ourBarChart2, it)
         }

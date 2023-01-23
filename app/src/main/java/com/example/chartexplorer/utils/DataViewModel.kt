@@ -31,6 +31,11 @@ class DataViewModel : ViewModel() {
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
+
+    init {
+        dataAnimalsAcquisition()
+    }
+
     /**
      * Function for acquiring pie chart data via API
      */

@@ -28,8 +28,6 @@ class PieChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.ourPieChart2.setCenterTextSize(17f)
         dataViewModel.animal.observe(this.viewLifecycleOwner) {
             retrieveRecordsAndPopulatePieChart(binding.ourPieChart2, it)
         }

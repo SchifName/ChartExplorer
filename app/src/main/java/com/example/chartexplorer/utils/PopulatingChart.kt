@@ -88,6 +88,7 @@ fun populatePieChart(animalsInfoFromInternet: AnimalsInfoFromInternet, ourPieCha
     //setting color and size of text
     data.setValueTextColor(Color.WHITE)
     data.setValueTextSize(10f)
+    ourPieChart.setCenterTextSize(17f)
 
     //add an animation when rendering the pie chart
     ourPieChart.animateY(1400, Easing.EaseInOutQuad)
@@ -123,6 +124,11 @@ fun populateBarChart(animalsInfoFromInternet: AnimalsInfoFromInternet, ourBarCha
     ourBarChart.data = data
     //setting the x-axis
     val xAxis: XAxis = ourBarChart.xAxis
+
+    ourBarChart.xAxis.textSize = 8f
+    ourBarChart.axisLeft.textSize = 8f
+    ourBarChart.data.setValueTextSize(10f)
+
     //calling methods to hide x-axis gridlines
     ourBarChart.axisLeft.setDrawGridLines(false)
     xAxis.setDrawGridLines(false)
