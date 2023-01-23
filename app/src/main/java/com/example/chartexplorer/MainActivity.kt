@@ -7,24 +7,15 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.viewpager.widget.ViewPager
 import com.example.chartexplorer.databinding.ActivityMainBinding
-import com.example.chartexplorer.swipe.ScreenSlidePagerAdapter
-import com.example.chartexplorer.swipe.fragment.SwipeFragment
 import com.example.chartexplorer.swipe.fragment.SwipeFragmentDirections
-import com.example.chartexplorer.ui.home.HomeFragment
 import com.example.chartexplorer.ui.home.HomeFragmentDirections
-import com.example.chartexplorer.utils.addFragment
-import com.example.chartexplorer.utils.refresh
-import com.example.chartexplorer.utils.removeFragment
-import com.example.chartexplorer.utils.replaceFragment
 
 
 class MainActivity : AppCompatActivity() {
 
-    private var swipeClick = true
-    private var backClick = 0
-    private var homeClick = false
+    private var swipeMenu = false
+    private var homeMenu = true
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -51,25 +42,18 @@ class MainActivity : AppCompatActivity() {
         binding.navigationRail.setOnItemReselectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.swipe -> {
-                    if (!swipeClick || backClick == 1) {
+                    if (swipeMenu) {
                         val action = HomeFragmentDirections.actionHomeFragmentToSwipeFragment2()
                         navController.navigate(action)
-                        homeClick = false
-                        swipeClick = true
                     }
-                    backClick = 0
                     /*removeFragment(HomeFragment())
                     addFragment(R.id.main_content, SwipeFragment())
                     replaceFragment(R.id.main_content, SwipeFragment())*/
                 }
                 R.id.home -> {
-                    if (!homeClick) {
-                        if (backClick != 1){
-                            val action = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
-                            navController.navigate(action)
-                            homeClick = true
-                            swipeClick = false
-                        }
+                    if (homeMenu) {
+                        val action = SwipeFragmentDirections.actionSwipeFragmentToHomeFragment2()
+                        navController.navigate(action)
                     }
                     /*removeFragment(SwipeFragment())
                     addFragment(R.id.main_content, HomeFragment())
@@ -79,22 +63,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        navController.addOnDestinationChangedListener{ _, nd: NavDestination, _->
-            if(nd.id == R.id.pieChartFragment || nd.id == R.id.barChartFragment){
+        navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
+            if (nd.id == R.id.pieChartFragment || nd.id == R.id.barChartFragment) {
                 //if (navView.visibility == View.GONE) railView?.visibility = View.GONE
                 //else navView.visibility = View.GONE
-                binding.navigationRail?.visibility = View.GONE
-                backClick = 1
-            }else{
-                binding.navigationRail?.visibility = View.VISIBLE
+                binding.navigationRail.visibility = View.GONE
+            } else {
+                binding.navigationRail.visibility = View.VISIBLE
+                if (nd.id == R.id.homeFragment) {
+                    //if (navView.visibility == View.GONE) railView?.visibility = View.GONE
+                    //else navView.visibility = View.GONE
+                    swipeMenu = true
+                    homeMenu = false
+                } else {
+                    swipeMenu = false
+                    homeMenu = true
+                }
             }
         }
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        swipeClick = true
-        homeClick = false
         val navController = findNavController(R.id.main_content)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
