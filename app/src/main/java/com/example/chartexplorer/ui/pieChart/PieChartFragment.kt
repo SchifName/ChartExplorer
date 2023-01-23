@@ -33,9 +33,5 @@ class PieChartFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
-    }
 
 }
