@@ -30,7 +30,7 @@ fun AppCompatActivity.removeFragment(fragment: Fragment) {
     }
 }
 
-fun AppCompatActivity.refresh(fragment: Fragment){
+fun AppCompatActivity.refresh(fragment: Fragment) {
     supportFragmentManager.doTransaction {
         detach(fragment).attach(fragment)
     }

@@ -6,11 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.example.chartexplorer.R
-import com.example.chartexplorer.databinding.FragmentHomeBinding
 import com.example.chartexplorer.databinding.FragmentSwipeBinding
 import com.example.chartexplorer.swipe.ScreenSlidePagerAdapter
-import com.example.chartexplorer.ui.home.HomeViewModel
 
 class SwipeFragment : Fragment() {
 
@@ -18,12 +15,6 @@ class SwipeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-
-    companion object {
-        fun newInstance() = SwipeFragment()
-    }
-
-    private lateinit var viewModel: SwipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

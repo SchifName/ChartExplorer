@@ -1,6 +1,5 @@
 package com.example.chartexplorer.network
 
-import com.example.chartexplorer.model.AnimalModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

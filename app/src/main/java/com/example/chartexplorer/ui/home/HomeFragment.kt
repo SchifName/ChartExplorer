@@ -42,7 +42,12 @@ class HomeFragment : Fragment() {
         ourPieChart = binding.ourPieChart
         ourBarChart = binding.ourBarChart
         ourLineChart = binding.ourLineChart
-        retrieveRecordsAndPopulateCharts(dataViewModel.animal.value,ourPieChart, ourBarChart, ourLineChart)
+        retrieveRecordsAndPopulateCharts(
+            dataViewModel.animal.value,
+            ourPieChart,
+            ourBarChart,
+            ourLineChart
+        )
 
         ourPieChart.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPieChartFragment()

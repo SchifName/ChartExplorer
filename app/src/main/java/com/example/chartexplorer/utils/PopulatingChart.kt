@@ -1,7 +1,6 @@
 package com.example.chartexplorer.utils
 
 import android.graphics.Color
-import com.example.chartexplorer.model.AnimalModel
 import com.example.chartexplorer.network.AnimalsInfoFromInternet
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
@@ -12,27 +11,10 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 
-val animal = listOf(
-    AnimalModel(
-        animalId = 0,
-        animalName = "Lion",
-        totNumber = 4,
-        avgAge = 10,
-        avgGrowth = 5
-    ),
-    AnimalModel(
-        animalId = 1,
-        animalName = "Zebra",
-        totNumber = 8,
-        avgAge = 16,
-        avgGrowth = 8
-    )
-)
 
 //creating the instance of DatabaseHandler class
 //calling the retrieve Animals method of DatabaseHandler class to read the records
 //create arrays for storing the values gotten
-val animalArray = mutableListOf<AnimalModel>()
 
 fun retrieveRecordsAndPopulatePieChart(
     ourPieChart: PieChart,
@@ -54,8 +36,8 @@ fun retrieveRecordsAndPopulateCharts(
     ourBarChart: BarChart,
     ourLineChart: LineChart
 ) {
-    if(animalsInfoFromInternet != null){
-        populatePieChart(animalsInfoFromInternet ,ourPieChart)
+    if (animalsInfoFromInternet != null) {
+        populatePieChart(animalsInfoFromInternet, ourPieChart)
         populateBarChart(animalsInfoFromInternet, ourBarChart)
         populateLineChart(animalsInfoFromInternet, ourLineChart)
     }

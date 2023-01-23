@@ -3,14 +3,10 @@ package com.example.chartexplorer.utils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.chartexplorer.network.AnimalsInfo
 import com.example.chartexplorer.network.AnimalsInfoFromInternet
 import com.example.chartexplorer.network.AnimalsNet
-import com.example.chartexplorer.network.AnimalsNetwork
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -50,7 +46,6 @@ class DataViewModel : ViewModel() {
             _eventNetworkError.value = true
         }
     }
-
 
 
 }
